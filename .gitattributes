@@ -1,0 +1,4 @@
+# keep data files byte for byte (no line-ending conversion)
+*.tf -text
+*.tsv -text
+*.md text eol=lf
