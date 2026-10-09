@@ -1,0 +1,40 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      # the comparison with the BHSA must run here, not be skipped
+      REQUIRE_BHSA: "1"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install Text-Fabric and pytest
+        run: pip install text-fabric==13.1.0 pytest
+
+      - name: Cache BHSA 2021
+        id: bhsa
+        uses: actions/cache@v4
+        with:
+          path: ~/text-fabric-data/github/ETCBC/bhsa/tf/2021
+          key: bhsa-tf-2021
+
+      - name: Download BHSA 2021
+        if: steps.bhsa.outputs.cache-hit != 'true'
+        env:
+          GHPERS: ${{ secrets.GITHUB_TOKEN }}
+        run: >
+          python -c "from tf.advanced.repo import checkoutRepo;
+          checkoutRepo('github', org='ETCBC', repo='bhsa', folder='tf', version='2021', checkout='')"
+
+      - name: Run the tests
+        run: python -m pytest tests -v

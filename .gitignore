@@ -1,2 +1,4 @@
 # Text-Fabric binary caches, rebuilt on loading
 .tf/
+__pycache__/
+.pytest_cache/

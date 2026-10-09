@@ -1,5 +1,7 @@
 # Aleppo Codex in Text-Fabric
 
+[![tests](https://github.com/MartijnNaaijer/aleppo/actions/workflows/tests.yml/badge.svg)](https://github.com/MartijnNaaijer/aleppo/actions/workflows/tests.yml)
+
 A [Text-Fabric](https://github.com/annotation/text-fabric) dataset of the Hebrew Bible according to the Aleppo Codex, in the edition
 [**מקרא על פי המסורה**](https://he.wikisource.org/wiki/מקרא_על_פי_המסורה) on Hebrew Wikisource. It is made for direct comparison with
 [BHSA 2021](https://github.com/ETCBC/bhsa): the words are segmented as in the BHSA, the features have the BHSA names and conventions,
@@ -118,7 +120,19 @@ words_in_codex = [w for w in A.F.otype.s("word") if A.F.aleppo_extant.v(A.L.u(w,
 tf/1.0/                         the dataset
 tf/bhsa-mapping/2021/aleppo.tf  module for BHSA 2021: feature aleppo on BHSA words
 mapping/                        the word mapping and the versification differences as tables
+tests/                          tests of the dataset
 ```
+
+## Tests
+
+`python -m pytest tests` (needs `text-fabric` and `pytest`) checks the dataset:
+- consistency on its own: sections, the features of a word agree with each other (consonants, normalized text,
+  qere), allowed values of trailers and codex features, the pages of the codex in order, known lost and extant verses;
+- against BHSA 2021: the mapping (order, both directions, same verse except the listed versification differences) and the
+  agreement of the features, with thresholds just below the values of this version.
+
+The BHSA tests use `$BHSA_TF` or `~/text-fabric-data/github/ETCBC/bhsa/tf/2021`, and are skipped when BHSA is not there.
+On GitHub the tests run after every push to `main`, with BHSA 2021 downloaded by Text-Fabric.
 
 ## How it was made
 
