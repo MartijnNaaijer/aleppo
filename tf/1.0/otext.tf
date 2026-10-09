@@ -17,5 +17,5 @@
 @sourceDescription=The Hebrew Bible with vowels and accents in the edition 'מקרא על פי המסורה' on Hebrew Wikisource, based on the Aleppo Codex; where the codex is lost the edition follows closely related Tiberian manuscripts (see feature aleppo_extant).
 @version=1.0
 @writtenBy=Text-Fabric
-@dateWritten=2026-10-09T15:46:58+00:00Z
+@dateWritten=2026-10-09T15:56:43+00:00Z
 

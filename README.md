@@ -26,9 +26,14 @@ Features of words:
 | `note`, `marks` | textual notes of the edition; large, small, suspended and dotted letters, inverted nun |
 | `bhsa`, `bhsa_seg` | the corresponding BHSA 2021 word (a BHSA slot) and how it was matched |
 
-Features of verses: `aleppo_extant` (0 where the codex is lost and the edition follows related manuscripts) and
-`accents_alt` (the Decalogue with each accentuation system separately; the text itself has the combined accents, like the
-codex and the BHSA).
+Features of verses:
+
+| feature | content |
+|---|---|
+| `aleppo_extant` | 1 if the verse is (wholly or partly) on a surviving page of the codex, 0 if it is in a lost part (see below) |
+| `aleppo_page` | the page(s) of the codex with the verse, as leaf:side (side a = א, b = ב): `72:a`, `71:b 72:a`, `241a:a`; `fragment` for Exod 8:16–18 |
+| `aleppo_photo` | for lost verses known from an old photograph: where the photograph was published |
+| `accents_alt` | the Decalogue with each accentuation system separately; the text itself has the combined accents, like the codex and the BHSA |
 
 Text formats: `text-orig-full` (default; with the qere, like the BHSA), `text-orig-full-ketiv`, `text-orig-norm`,
 `text-orig-norm-ketiv`, `text-orig-plain`, `text-trans-plain`.
@@ -73,11 +78,38 @@ For 1:1 mapped words, `g_word_norm` equals BHSA `g_word_utf8` in 97.9% of the wo
 Note: the BHSA itself writes שׁ/שׂ as precomposed characters (U+FB2A, U+FB2B) in 253 places, mostly in the qere. Replace them by
 ש + U+05C1/U+05C2 before comparing.
 
+### Lost parts of the codex
+
+About a third of the Aleppo Codex is lost (7,965 of 23,202 verses). In those parts the edition gives the text of closely related Tiberian manuscripts, so
+comparisons with the codex itself should be restricted to verses with `aleppo_extant` = 1 (15,237 of 23,202 verses). The pages are
+taken from the edition's [key to the codex](https://he.wikisource.org/wiki/ויקיטקסט:מבוא_למקרא_על_פי_המסורה/מפתח_לכתר_ארם_צובה),
+which lists the verses on every surviving page side (after J. David Stark's index). Lost:
+
+| lost part | |
+|---|---|
+| Gen 1:1 – Deut 28:16 | except a small fragment with Exod 8:16–18; Gen 26:34–27:30 and Deut 4:38–6:3 are known from old photographs |
+| 2 Kgs 14:22 – 18:12 | |
+| Jer 29:10 – 31:34 | |
+| Jer 32:15–18 | a torn leaf |
+| Amos 8:13 – Mic 4:14 | with Obadiah and Jonah |
+| Hag 1:1 – Zech 9:16 | |
+| Ps 15:1 – 25:1 | |
+| Song 4:1 – end | and Ecclesiastes, Lamentations, Esther, Daniel, Ezra, Nehemiah |
+
+The verses at the edges (Deut 28:17, 2 Kgs 14:21, Jer 29:9, Mic 5:1, Song 3:11, ...) are partly on a surviving page and count as
+extant. 2 Chr 35:7–36:19 is on leaf 241a, which was not brought to Israel with the codex but found later in the United States.
+
+```python
+lost = [v for v in A.F.otype.s("verse") if not A.F.aleppo_extant.v(v)]
+words_in_codex = [w for w in A.F.otype.s("word") if A.F.aleppo_extant.v(A.L.u(w, "verse")[0])]
+```
+
 ## Caveats
 
 - **Ketiv/qere.** The edition marks 1,213 ketiv/qere instances. In about 150 places where the BHSA has a qere, the edition
   prints the ketiv pointed without a qere (e.g. 2 Sam 1:11 בְגָדָ֖ו).
-- **`aleppo_extant`** follows the edition's list of lacunae at verse level; verses at the edges of a lacuna count as lost.
+- **`aleppo_extant`** is at verse level: a verse partly on a surviving page counts as extant. One obvious error in the key is
+  corrected: page 222a ends 1 Chronicles and has 2 Chr 1:1–11 (the key has 2 Chr 1:11 only).
 - **Mapping.** 30 BHSA words have no Aleppo word (mostly Josh 21:36–37); 1 Aleppo word has no BHSA word (2 Sam 7:22).
 
 ## Contents of this repository

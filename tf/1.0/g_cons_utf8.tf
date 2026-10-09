@@ -11,7 +11,7 @@
 @valueType=str
 @version=1.0
 @writtenBy=Text-Fabric
-@dateWritten=2026-10-09T15:46:55+00:00Z
+@dateWritten=2026-10-09T15:56:40+00:00Z
 
 ב
 ראשׁית
