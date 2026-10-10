@@ -1,3 +1,5 @@
+<img src="images/caccht-logo.png" alt="CACCHT logo" height="200">
+
 # Aleppo Codex in Text-Fabric
 
 [![tests](https://github.com/MartijnNaaijer/aleppo/actions/workflows/tests.yml/badge.svg)](https://github.com/MartijnNaaijer/aleppo/actions/workflows/tests.yml)
