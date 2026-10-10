@@ -5,7 +5,7 @@
 A [Text-Fabric](https://github.com/annotation/text-fabric) dataset of the Hebrew Bible according to the Aleppo Codex, in the edition
 [**מקרא על פי המסורה**](https://he.wikisource.org/wiki/מקרא_על_פי_המסורה) on Hebrew Wikisource. It is made for direct comparison with
 [BHSA 2021](https://github.com/ETCBC/bhsa): the words are segmented as in the BHSA, the features have the BHSA names and conventions,
-and every word is mapped to its BHSA word.
+and every word is mapped to its BHSA word. This is a [CACCHT](https://github.com/caccht) dataset.
 
 Licence of the text: CC-BY-SA 4.0. Attribution: "מקרא על פי המסורה", he.wikisource.org.
 
